@@ -6,6 +6,7 @@ import { OrderComponent } from './features/order/order.component';
 const routes: Routes = [
   { path: 'market', component: MarketComponent },
   { path: 'orders', component: OrderComponent },
+  {path:'**', component: MarketComponent}
   ];
 
 @NgModule({

@@ -1,58 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { MarketService } from 'src/app/core/services/market.service';
 
 @Component({
   selector: 'app-market',
   templateUrl: './market.component.html',
-  styleUrls: ['./market.component.sass']
+  styleUrls: ['./market.component.scss']
 })
 export class MarketComponent implements OnInit {
-  products = [{
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5
-},{
-  id: '1000',
-  code: 'f230fh0g3',
-  name: 'Bamboo Watch',
-  description: 'Product Description',
-  image: 'bamboo-watch.jpg',
-  price: 65,
-  category: 'Accessories',
-  quantity: 24,
-  inventoryStatus: 'INSTOCK',
-  rating: 5
-},{
-  id: '1000',
-  code: 'f230fh0g3',
-  name: 'Bamboo Watch',
-  description: 'Product Description',
-  image: 'bamboo-watch.jpg',
-  price: 65,
-  category: 'Accessories',
-  quantity: 24,
-  inventoryStatus: 'INSTOCK',
-  rating: 5
-},{
-  id: '1000',
-  code: 'f230fh0g3',
-  name: 'Bamboo Watch',
-  description: 'Product Description',
-  image: 'bamboo-watch.jpg',
-  price: 65,
-  category: 'Accessories',
-  quantity: 24,
-  inventoryStatus: 'INSTOCK',
-  rating: 5
-},]
+
+   stocksObs = this.marketService.stocksObs$;
+   constructor(private marketService:MarketService){}
   ngOnInit(): void {
-    
+    this.marketService.getCurrentPrices()
+   
   }
 
 }

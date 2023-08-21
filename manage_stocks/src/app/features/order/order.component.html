@@ -1,1 +1,62 @@
-<p>order works!</p>
+<div class="card">
+    <p-dialog
+    [modal]="true"
+    header="add new order"
+    [(visible)]="addNewDialogueFlag"
+    [style]="{ width: '50vw',height:'80vh' , 'overflow-y':'scroll'}"
+  
+    [baseZIndex]="10000"
+    (onHide)="addNewDialogueFlag = false"
+    appendTo="body"
+  >
+ 
+
+  <form (ngSubmit)="onAddNewOrder()" #form="ngForm">
+    <label for="name">Name</label>
+    <input required type="text" id="name" name="name" [(ngModel)]="currentOrder.personName" placeholder="Your name..">
+    <div class="grid-container">
+        <div pDraggable (onDragStart)="drag(s)"  *ngFor="let s of iterableStocks" style="background-color: #f2f2f2;" >
+            {{s.name}}
+        </div>
+      </div>
+      <div [ngStyle]="{ 'background-color':currentOrder.stockId?'#4CAF50':''}" style="text-align: center;" id="dropable" (onDrop)="calculatePrice()" pDroppable >
+        <i  class="pi pi-cart-plus" style="font-size: 2rem" id="itemcount"></i>
+        <!-- <span class="heading">Add items to the Basket</span> -->
+        
+        
+      </div>
+    <label for="quantity">Quantity</label>
+    <input (change)="calculatePrice()" type="number" [(ngModel)]="currentOrder.quantity" id="quantity" name="quantity" placeholder="quantity">
+
+      <label for="price">Price</label>
+    <input type="number" readonly [ngModel]="currentOrder.price" id="price" name="price" placeholder="price">
+      
+    
+   
+    <input [disabled]="!form.valid" type="submit" value="Submit">
+  </form>
+  </p-dialog>
+    <div class="row">
+        <button class="button button2" (click)="addNewDialogueFlag=true"  >add New Order</button>
+    </div>
+    <p-table *ngIf="ordersObs | async as orders" [value]="orders" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>PersonName</th>
+                <th>StockName</th>
+                <th>Quantity</th>
+                <th>Price</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order >
+            <tr>
+                <td>{{ order.personName }}</td>
+                <td>{{ stocks[order.stockId].name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.price | number: '1.0-2'}}</td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
