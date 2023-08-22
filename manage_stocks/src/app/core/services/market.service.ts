@@ -29,4 +29,16 @@ export class MarketService {
 
 
     }
+    public reorderStocks(stocks:Stock[],draggedStock:Stock, droppedStockId:string){
+        
+        
+        let newIndex =stocks.findIndex(s=>s.id==+droppedStockId)
+        let newStocks = stocks.filter(s=>s.id!==draggedStock.id);
+        newStocks = [...newStocks.slice(0,newIndex),draggedStock,...newStocks.slice(newIndex)];
+        Defines.Stocks = newStocks.map(({ price,...rest})=> rest)
+        this.stocksSub?.next(newStocks);
+        
+        
+        
+    }
 }
