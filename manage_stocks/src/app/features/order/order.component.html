@@ -14,7 +14,7 @@
         <ng-template pTemplate="body" let-order >
             <tr>
                 <td>{{ order.personName }}</td>
-                <td>{{ stocks[order.stockId].name }}</td>
+                <td>{{ stocks[order.stockId]?.name }}</td>
                 <td>{{ order.quantity }}</td>
                 <td>{{ order.price | number: '1.0-2'}}</td>
 
